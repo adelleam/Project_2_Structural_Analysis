@@ -84,5 +84,5 @@ Q82::16.99
 Q83::N
 Q84::N
 Q85::N
-Q86::
-Q87::
+Q86::The applied forces and reaction forces of the Eight Panel Gabled and Scissor Truss were the same, while the Six Panel forces were larger. The Scissor Truss had the maximum member load and the maximum total forces in the members, with the Six Panel being the smallest. All the trusses have the same tributary area, so they have the same roofing costs, but the Scissor Truss has more member length so it is more expensive. Also, I think the Gabled Howe Trusses look nicer.
+Q87::I believe the best truss to use is the Six Panel Gabled Howe Truss. Although each top node experiences more load, the internal members of the truss experience less load than the other trusses. Although individual members are longer, there are less total members than the other trusses. Based on this information, I believe this is the strongest truss that will also be the cheapes
