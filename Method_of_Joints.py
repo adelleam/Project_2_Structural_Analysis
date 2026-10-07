@@ -77,12 +77,17 @@ def SumOfForcesInLocalX(node, local_x_bar):
 # Compute unknown force in bar due to sum of the 
 # forces in the y direction
 def SumOfForcesInLocalY(node, unknown_bars):
-    #Define the first unknown bar next to the node as the local y bar
-    #the bar we are solving for
+    #define the first unknown bar as the local x bar
+    local_x_bar = unknown_bars[0]
+    
+    #define the other unknown bar as the local y bar
     local_y_bar = unknown_bars[1]
     
-    #Find the local y vector---the vector from the node in the direction of the local y bar
-    local_y_vector = geom.BarNodeToVector(node, local_y_bar)
+    #Find the local x vector
+    local_x_vector = geom.BarNodeToVector(node, local_x_bar)
+    
+    #Find the local y vector perp. to the local x vector
+    local_y_vector = [-local_x_vector[1], local_x_vector[0]]
     
     #Determine the contribution of the external/reaction force(s) in the global y and x direction to the force in the local x direction
     #forces in the global x and y direction
@@ -108,9 +113,15 @@ def SumOfForcesInLocalY(node, unknown_bars):
            
            force_sum_local_y += bar_contribution
            
+    #find the direction of the local y bar
+    local_y_bar_vector = geom.BarNodeToVector(node, local_y_bar)
+    
+    #Determine how much of the local y bar force acts in local y directoin
+    local_y_bar_projection = geom.CosineVectors(local_y_vector, local_y_bar_vector
+                                                )
     #Set the force in the local x bar as the sum of all of the above contributions multiplied by -1
-    #Of all other force contributions
-    local_y_bar_force = -force_sum_local_y
+    #of all other force contributions
+    local_y_bar_force = -force_sum_local_y / local_y_bar_projection
     
     #Mark the bar as known
     local_y_bar.SetAxialLoad(local_y_bar_force)
@@ -158,3 +169,4 @@ def IterateUsingMethodOfJoints(nodes,bars):
         
         #Output the total number of structure iterations
         print("Total structure iterations:", iteration_counter)
+        
